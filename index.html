@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Task Manager</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Task Manager</h1>
+            <button id="toggleSidebar" class="toggle-sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+        </header>
+
+        <div class="app-container">
+            <aside class="sidebar" id="sidebar">
+                <div class="user-profile">
+                    <div class="profile-image">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Welcome Back</h3>
+                </div>
+
+                <div class="categories-section">
+                    <h2>Categories</h2>
+                    <ul class="category-list" id="categoryList">
+                        <li data-category="all" class="active">
+                            <span><i class="fas fa-list"></i> All Tasks</span>
+                            <span class="count" id="allCount">0</span>
+                        </li>
+                        <li data-category="today">
+                            <span><i class="fas fa-calendar-day"></i> Today</span>
+                            <span class="count" id="todayCount">0</span>
+                        </li>
+                        <li data-category="important">
+                            <span><i class="fas fa-star"></i> Important</span>
+                            <span class="count" id="importantCount">0</span>
+                        </li>
+                        <li data-category="completed">
+                            <span><i class="fas fa-check-circle"></i> Completed</span>
+                            <span class="count" id="completedCount">0</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="custom-categories">
+                    <h2>Custom Lists</h2>
+                    <ul class="custom-category-list" id="customCategoryList">
+                        <!-- Custom categories will be added here -->
+                    </ul>
+                    <div class="add-category">
+                        <input type="text" id="newCategoryInput" placeholder="New list name...">
+                        <button id="addCategoryBtn"><i class="fas fa-plus"></i></button>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="content">
+                <div class="task-header">
+                    <h2 id="currentCategory">All Tasks</h2>
+                    <div class="task-controls">
+                        <div class="search-container">
+                            <input type="text" id="searchInput" placeholder="Search tasks...">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div class="sort-container">
+                            <select id="sortSelect">
+                                <option value="date-asc">Date (Oldest)</option>
+                                <option value="date-desc">Date (Newest)</option>
+                                <option value="priority">Priority</option>
+                                <option value="name-asc">Name (A-Z)</option>
+                                <option value="name-desc">Name (Z-A)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="add-task-container">
+                    <form id="addTaskForm">
+                        <input type="text" id="taskInput" placeholder="Add a new task..." required>
+                        <button type="submit" id="addTaskBtn">
+                            <i class="fas fa-plus"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="tasks-container">
+                    <ul class="task-list" id="taskList">
+                        <!-- Tasks will be added here -->
+                    </ul>
+                </div>
+
+                <div id="noTasksMessage" class="no-tasks">
+                    <i class="fas fa-clipboard-list"></i>
+                    <p>No tasks yet! Add a task to get started.</p>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- Task Details Modal -->
+    <div class="modal" id="taskModal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Task Details</h2>
+            <form id="taskDetailsForm">
+                <input type="hidden" id="taskId">
+                <div class="form-group">
+                    <label for="detailTaskName">Task Name</label>
+                    <input type="text" id="detailTaskName" required>
+                </div>
+                <div class="form-group">
+                    <label for="detailTaskDescription">Description</label>
+                    <textarea id="detailTaskDescription"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="detailTaskDate">Due Date</label>
+                    <input type="date" id="detailTaskDate">
+                </div>
+                <div class="form-group">
+                    <label for="detailTaskCategory">Category</label>
+                    <select id="detailTaskCategory">
+                        <!-- Categories will be added here -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="detailTaskPriority">Priority</label>
+                    <select id="detailTaskPriority">
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <div class="form-group checkbox-group">
+                    <input type="checkbox" id="detailTaskImportant">
+                    <label for="detailTaskImportant">Mark as Important</label>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="btn save-btn">Save Changes</button>
+                    <button type="button" class="btn delete-btn" id="deleteTaskBtn">Delete Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="logic.js"></script>
+</body>
+</html>
